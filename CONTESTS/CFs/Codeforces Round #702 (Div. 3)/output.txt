@@ -1,0 +1,9 @@
+6
+1
+2
+2
+0
+12
+
+
+Time taken: 0 seconds

@@ -1,0 +1,28 @@
+n=int(input())
+i=0
+lst=[]
+l2=[]
+while(i<n):
+    a=int(input())
+    lst.append(a)
+    i+=1
+i=0
+while(i<n):
+    if(i==0):
+        c=lst.count(lst[i])
+        print(lst[i],c)
+        l2.append(lst[i])
+    else:
+        j=0
+        while(j<len(l2)):
+            if(l2[j]==lst[i]):
+                a=1
+                break
+            else:
+                a=0
+            j+=1
+        if(a==0):
+            c=lst.count(lst[i])
+            print(lst[i],c)
+            l2.append(lst[i])
+    i+=1
