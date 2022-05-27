@@ -1,4 +1,7 @@
+1
+0
+4
 3
 
 
-Time taken: 0.000 seconds
+Time taken: 1.000 seconds
