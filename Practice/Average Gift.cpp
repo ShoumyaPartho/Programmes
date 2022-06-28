@@ -21,14 +21,23 @@ void fastIO() {
 }
 
 void solve() {
-	ll tc, n, x; cin >> tc;
+	ll tc, n, x, k, maxi, mini; cin >> tc;
 
 	while (tc--) {
-		cin >> n >> x;
-		vector<ll> ara(n + 1, 0), preSum(n + 1, 0);
+		cin >> n >> x; maxi = 0, mini = 1e9 + 7;
 
-		for (int i)
+		for (int i = 1; i <= n; i++) {
+			cin >> k;
+			maxi = max(maxi, k);
+			mini = min(mini, k);
 		}
+
+		if (x >= mini and x <= maxi)
+			cout << "YES" << endl;
+
+		else
+			cout << "NO" << endl;
+	}
 }
 
 int main() {

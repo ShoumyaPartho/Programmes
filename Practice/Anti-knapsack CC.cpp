@@ -1,5 +1,3 @@
-// ABC - 250
-
 // Solved by: Shoumya
 
 #include<iostream>
@@ -23,22 +21,20 @@ void fastIO() {
 }
 
 void solve() {
-	int h, w, r, c, cnt = 0;
-	cin >> h >> w >> r >> c;
+	int tc, n, k, flag; cin >> tc;
 
-	if (r - 1)
-		cnt++;
+	while (tc--) {
+		cin >> n >> k; flag = 0;
 
-	if ((r + 1) <= h)
-		cnt++;
+		for (int i = 2; not flag; i++) {
+			if (k % i) {
+				flag = 1;
 
-	if (c - 1)
-		cnt++;
-
-	if ((c + 1) <= w)
-		cnt++;
-
-	cout << cnt << endl;
+				for (int j = 1; j <= n; j++)
+					cout << j*i << " \n"[j == n];
+			}
+		}
+	}
 }
 
 int main() {

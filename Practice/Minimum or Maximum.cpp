@@ -1,5 +1,3 @@
-// ABC - 250
-
 // Solved by: Shoumya
 
 #include<iostream>
@@ -23,22 +21,19 @@ void fastIO() {
 }
 
 void solve() {
-	int h, w, r, c, cnt = 0;
-	cin >> h >> w >> r >> c;
+	int n, maxi = 0, mini = 1e9 + 7, flag = 1, x; cin >> n;
 
-	if (r - 1)
-		cnt++;
+	while (n--) {
+		cin >> x;
 
-	if ((r + 1) <= h)
-		cnt++;
+		maxi = max(maxi, x);
+		mini = min(mini, x);
 
-	if (c - 1)
-		cnt++;
+		if (x< maxi and x>mini)
+			flag = 0;
+	}
 
-	if ((c + 1) <= w)
-		cnt++;
-
-	cout << cnt << endl;
+	cout << (flag ? "YES" : "NO") << endl;
 }
 
 int main() {
@@ -46,7 +41,14 @@ int main() {
 	clock_t start = clock();
 	// Write code here...
 
-	solve();
+	// solve();
+
+	int tc, t; cin >> t;
+
+	for (tc = 1; tc <= t; tc++) {
+		// cout<<"Case "<<tc<<": ";
+		solve();
+	}
 
 #ifndef ONLINE_JUDGE
 	clock_t stop = clock(); cout.precision(3);

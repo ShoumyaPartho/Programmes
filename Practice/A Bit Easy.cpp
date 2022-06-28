@@ -3,6 +3,7 @@
 #include<iostream>
 #include<ctime>
 #include<vector>
+#include<map>
 #include<algorithm>
 #include<iomanip>
 using namespace std;
@@ -21,42 +22,22 @@ void fastIO() {
 }
 
 void solve() {
-	ll tc, n, sum, cnt, tempSum; cin >> tc;
-	double avg, tempAvg, x;
+	ll tc, n, k, x, ans; cin >> tc;
 
 	while (tc--) {
-		cin >> n; sum = tempSum = cnt = 0;
-		vector<ll> ara(n + 1, 0);
+		cin >> n >> k; ans = 0;
+		map<ll, ll> mp;
 
 		for (int i = 1; i <= n; i++) {
-			cin >> ara[i];
-			sum += ara[i];
+			cin >> x;
+
+			ans += mp[x];
+
+			if (k >= x)
+				mp[(k - x) ^ x]++;
 		}
 
-		x = tempAvg = sum * 1.0 / n;
-		// cout << "HERE tempAvg = " << tempAvg << endl;
-
-		for (int i = 1; i <= n; i++) {
-			if (ara[i] * 1.0 > tempAvg) {
-				sum -= ara[i];
-				cnt++;
-				tempSum += ara[i];
-			}
-		}
-
-		if (cnt == n) {
-			tempAvg = 0;
-			avg = (tempSum) * 1.0 / (cnt);
-		}
-		else {
-			tempAvg = (sum * 1.0) / (n - cnt);
-			avg = ( tempAvg + tempSum) * 1.0 / (cnt + 1);
-		}
-		// cout << "HERE tempAvg = " << tempAvg << endl;
-
-		// avg = ( tempAvg + tempSum) * 1.0 / (cnt + 1);
-
-		cout << fixed << setprecision(6) << avg << endl;
+		cout << ans << endl;
 	}
 }
 

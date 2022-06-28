@@ -1,11 +1,6 @@
 // Solved by: Shoumya
 
-#include<iostream>
-#include<ctime>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<iomanip>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define endl "\n"
@@ -21,69 +16,35 @@ void fastIO() {
 #endif
 }
 
-bool check(int *ara, int n, int val) {
-    map<int, int> mp;
-
-    for (int i = 1; i <= n; i++)
-        mp[ara[i]]++;
-
-    for (int i = 1; i <= val; i++) {
-        mp[ara[i]]--;
-
-        if (mp[ara[i]] == 0)
-            mp.erase(ara[i]);
-    }
-
-    if (mp.size() == n - val)
-        return true;
-
-    for (int i = val + 1; i <= n; i++) {
-        mp[ara[i - val]]++;
-        mp[ara[i]]--;
-
-        if (mp[ara[i]] == 0)
-            mp.erase(ara[i]);
-
-        if (mp.size() == n - val)
-            return true;
-    }
-    return false;
-}
-
 void solve() {
-    int n, low = 0, high, mid, ans; cin >> n;
+    ll n, m; cin >> n >> m;
 
-    int ara[n + 1] = {0}; high = n;
+    if (n == 1 and m == 1)
+        cout << 1 << endl;
 
-    for (int i = 1; i <= n; i++)
-        cin >> ara[i];
+    else if (n == 1 or m == 1) {
+        if (n == 1)
+            cout << m - 2 << endl;
 
-    while (low <= high) {
-        mid = (low + high) >> 1;
-
-        if (check(ara, n, mid)) {
-            ans = mid;
-            high = mid - 1;
-        }
-
-        else
-            low = mid + 1;
+        else if (m == 1)
+            cout << n - 2 << endl;
     }
 
-    cout << ans << endl;
+    else
+        cout << (n - 2)*(m - 2) << endl;
 }
 
 int main() {
     fastIO();
-    clock_t start = clock();
-    // Write code here...
 
-    solve();
+    // solve();
 
-#ifndef ONLINE_JUDGE
-    clock_t stop = clock(); cout.precision(3);
-    cout << fixed << "\n\nTime taken: " << (double)(stop - start) / CLOCKS_PER_SEC * 1000 << " seconds" << endl;
-#endif
+    int tc, t = 1; // cin>>t;
+
+    for (tc = 1; tc <= t; tc++) {
+        // cout<<"Case "<<tc<<": ";
+        solve();
+    }
 
     return 0;
 }

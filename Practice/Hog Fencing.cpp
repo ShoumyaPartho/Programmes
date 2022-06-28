@@ -1,5 +1,3 @@
-// ABC - 250
-
 // Solved by: Shoumya
 
 #include<iostream>
@@ -23,22 +21,20 @@ void fastIO() {
 }
 
 void solve() {
-	int h, w, r, c, cnt = 0;
-	cin >> h >> w >> r >> c;
+	int n, h, w, rem; cin >> n;
 
-	if (r - 1)
-		cnt++;
+	if (n < 4) {
+		cout << 0 << endl;
+		return;
+	}
 
-	if ((r + 1) <= h)
-		cnt++;
+	h = w = n / 4;
 
-	if (c - 1)
-		cnt++;
+	if (((h + 1) * 2) + (w * 2) <= n)
+		cout << (h + 1)*w << endl;
 
-	if ((c + 1) <= w)
-		cnt++;
-
-	cout << cnt << endl;
+	else
+		cout << h*w << endl;
 }
 
 int main() {

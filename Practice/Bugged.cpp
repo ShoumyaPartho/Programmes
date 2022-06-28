@@ -1,5 +1,3 @@
-// ABC - 250
-
 // Solved by: Shoumya
 
 #include<iostream>
@@ -23,22 +21,33 @@ void fastIO() {
 }
 
 void solve() {
-	int h, w, r, c, cnt = 0;
-	cin >> h >> w >> r >> c;
+	int n, sum = 0, temp; cin >> n;
+	vector<int> ara(n + 1, 0);
 
-	if (r - 1)
-		cnt++;
+	for (int i = 1; i <= n; i++) {
+		cin >> ara[i];
+		sum += ara[i];
+	}
 
-	if ((r + 1) <= h)
-		cnt++;
+	if (sum % 10)
+		cout << sum << endl;
 
-	if (c - 1)
-		cnt++;
+	else {
+		sort(ara.begin(), ara.end()); temp = -1;
 
-	if ((c + 1) <= w)
-		cnt++;
+		for (int i = 1; i <= n; i++) {
+			if (ara[i] % 10) {
+				temp = ara[i];
+				break;
+			}
+		}
 
-	cout << cnt << endl;
+		if (temp == -1)
+			cout << 0 << endl;
+
+		else
+			cout << sum - temp << endl;
+	}
 }
 
 int main() {
