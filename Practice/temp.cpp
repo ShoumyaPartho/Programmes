@@ -17,21 +17,59 @@ void fastIO() {
 }
 
 void solve() {
-    ll n, m; cin >> n >> m;
+    string s, p, temp; cin >> s >> p;
 
-    if (n == 1 and m == 1)
-        cout << 1 << endl;
-
-    else if (n == 1 or m == 1) {
-        if (n == 1)
-            cout << m - 2 << endl;
-
-        else if (m == 1)
-            cout << n - 2 << endl;
+    if (s == p) {
+        cout << "Yes" << endl;
+        return;
     }
 
-    else
-        cout << (n - 2)*(m - 2) << endl;
+    if (s.size() - 1 == p.size()) {
+        int flag = 1;
+
+        for (int i = 0; i < p.size(); i++) {
+            if (p[i] != s[i + 1]) {
+                flag = 0;
+                break;
+            }
+        }
+
+        if (flag and s[0] >= '0' and s[0] <= '9') {
+            cout << "Yes" << endl;
+            return;
+        }
+
+        flag = 1;
+
+        for (int i = 0; i < p.size(); i++) {
+            if (p[i] != s[i]) {
+                flag = 0;
+                break;
+            }
+        }
+
+        if (flag and s[s.size() - 1] >= '0' and s[s.size() - 1] <= '9') {
+            cout << "Yes" << endl;
+            return;
+        }
+    }
+
+    temp = p;
+
+    for (int i = 0; i < temp.size(); i++) {
+        if (s[i] >= 'a' and s[i] <= 'z')
+            s[i] = ('A' + s[i] - 'a');
+
+        else if (s[i] >= 'A' and s[i] <= 'Z')
+            s[i] = 'a' + s[i] - 'A';
+    }
+
+    if (temp == s) {
+        cout << "Yes" << endl;
+        return;
+    }
+
+    cout << "No" << endl;
 }
 
 int main() {

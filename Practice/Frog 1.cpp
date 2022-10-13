@@ -39,6 +39,20 @@ ll findAns(vector<ll> &stones, vector<ll>&dp, ll x, ll n) {
 	return dp[x];
 }
 
+void getAns(vector<ll> &stones, vector<ll> &dp, ll n) {
+	dp[1] = 0;
+
+	for (int i = 2; i <= n; i++) {
+		if (i - 1 >= 1)
+			dp[i] = min(dp[i], dp[i - 1] + abs(stones[i] - stones[i - 1]));
+
+		if (i - 2 >= 1)
+			dp[i] = min(dp[i], dp[i - 2] + abs(stones[i] - stones[i - 2]));
+	}
+
+	cout << dp[n] << endl;
+}
+
 void solve() {
 	ll n; cin >> n;
 
@@ -47,7 +61,9 @@ void solve() {
 	for (int i = 1; i <= n; i++)
 		cin >> stones[i];
 
-	cout << findAns(stones, dp, n, n) << endl;
+	// cout << findAns(stones, dp, n, n) << endl;
+
+	getAns(stones, dp, n);
 }
 
 int main() {
