@@ -17,34 +17,40 @@ void fastIO() {
 }
 
 void solve() {
-	ll n, q, k, x, lo, hi, mid, ans; cin >> n >> q;
-	ll preSums[n + 1] = {0}, nums[n + 1] = {0};
-	cin >> nums[1]; preSums[1] = nums[1];
+	ll q, lenA = 0, lenB = 0, n, k; cin >> q;
+	unordered_map<char, ll> a, b;
+	string s;
 
-	for (int i = 2; i <= n; i++) {
-		cin >> x;
-		nums[i] = max(nums[i - 1], x);
-		preSums[i] = preSums[i - 1] + x;
-	}
+	a['a'] = b['a'] = 1;
 
 	while (q--) {
-		cin >> x;
+		cin >> n >> k >> s;
 
-		lo = 1, hi = n, ans = -1;
+		if (n == 1) {
+			lenA += (k * s.size());
 
-		while (lo <= hi) {
-			mid = (lo + hi) >> 1;
-
-			if (nums[mid] <= x) {
-				ans = mid;
-				lo = mid + 1;
-			}
-
-			else
-				hi = mid - 1;
+			for (auto ch : s)
+				a[ch] += k;
 		}
 
-		cout << (ans == -1 ? 0 : preSums[ans]) << " \n"[q == 0];
+		else if (n == 2) {
+			lenB += (k * s.size());
+
+			for (auto ch : s)
+				b[ch] += k;
+		}
+
+		if (b.size() > 1)
+			cout << "YES" << endl;
+
+		else if (a.size() > 1)
+			cout << "NO" << endl;
+
+		else if (lenA >= lenB)
+			cout << "NO" << endl;
+
+		else
+			cout << "YES" << endl;
 	}
 }
 

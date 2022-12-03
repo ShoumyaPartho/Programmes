@@ -1,3 +1,4 @@
-1 4 4 9 9
-0 2
-3000000000
+finished process is P3
+finished process is P4
+System is in a not-safe state
+Bad process is P0

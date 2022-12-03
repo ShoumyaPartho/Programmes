@@ -1,88 +1,50 @@
-// Solved by: Shoumya
-
 #include<bits/stdc++.h>
 using namespace std;
 
-#define endl "\n"
-#define ll long long int
+bool is_prime(int x) {
+    if (x < 2)
+        return false;
 
-void fastIO() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0), cout.tie(0);
+    else if (x == 2)
+        return true;
 
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+    else if (x % 2 == 0)
+        return false;
+
+    for (int i = 3; i * i <= x; i++) {
+        if (x % i == 0)
+            return false;
+    }
+
+    return true;
 }
 
-void solve() {
-    string s, p, temp; cin >> s >> p;
-
-    if (s == p) {
-        cout << "Yes" << endl;
+void count_prime(int n, int *ara, int i, int &cntPrm) {
+    if (i == n)
         return;
+
+    if (is_prime(ara[i])) {
+        cntPrm++;
+        cout << ara[i] << " ";
     }
 
-    if (s.size() - 1 == p.size()) {
-        int flag = 1;
-
-        for (int i = 0; i < p.size(); i++) {
-            if (p[i] != s[i + 1]) {
-                flag = 0;
-                break;
-            }
-        }
-
-        if (flag and s[0] >= '0' and s[0] <= '9') {
-            cout << "Yes" << endl;
-            return;
-        }
-
-        flag = 1;
-
-        for (int i = 0; i < p.size(); i++) {
-            if (p[i] != s[i]) {
-                flag = 0;
-                break;
-            }
-        }
-
-        if (flag and s[s.size() - 1] >= '0' and s[s.size() - 1] <= '9') {
-            cout << "Yes" << endl;
-            return;
-        }
-    }
-
-    temp = p;
-
-    for (int i = 0; i < temp.size(); i++) {
-        if (s[i] >= 'a' and s[i] <= 'z')
-            s[i] = ('A' + s[i] - 'a');
-
-        else if (s[i] >= 'A' and s[i] <= 'Z')
-            s[i] = 'a' + s[i] - 'A';
-    }
-
-    if (temp == s) {
-        cout << "Yes" << endl;
-        return;
-    }
-
-    cout << "No" << endl;
+    count_prime(n, ara, i + 1, cntPrm);
 }
 
 int main() {
-    fastIO();
+    int n, cntPrm = 0;
+    cout << "Please enter size of array: ";
+    cin >> n;
 
-    // solve();
+    int ara[n];
+    cout << "Please enter elements of array: ";
 
-    int tc, t = 1; // cin>>t;
+    for (auto &x : ara)
+        cin >> x;
 
-    for (tc = 1; tc <= t; tc++) {
-        // cout<<"Case "<<tc<<": ";
-        solve();
-    }
+    count_prime(n, ara, 0, cntPrm);
+
+    cout << "\n\n#primes=" << cntPrm << endl;
 
     return 0;
 }
