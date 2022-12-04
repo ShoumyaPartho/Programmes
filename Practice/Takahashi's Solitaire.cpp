@@ -16,51 +16,46 @@ void fastIO() {
 #endif
 }
 
-ll dfs(ll st, ll cur, ll curSum, ll sum, ll &ans, ll MOD, unordered_map<ll, ll> &mp, unordered_map<ll, ll> &dp) {
-	if (dp.count(cur)) {
-		ll temp = curSum + dp[cur];
-		ll t2 = sum - temp;
-		ans = min(ans, t2);
-		return dp[cur];
-	}
-
-	else if (not mp.count(cur))
-		return 0;
-
-	ll t = cur * mp[cur];
-	curSum += t;
-	mp[cur] = 0;
-	ll temp = (cur + 1) % MOD;
-
-	if (temp == st) {
-		ll t2 = sum - curSum;
-		ans = min(ans, t2);
-		return dp[cur] = t;
-	}
-
-	else {
-		dp[cur] = t;
-		dp[cur] += dfs(st, temp, curSum, sum, ans, MOD, mp, dp);
-		ans = min(ans, sum - dp[cur]);
-		return dp[cur];
-	}
-}
-
 void solve() {
-	ll n, m, x, sum = 0, ans = 1e18; cin >> n >> m;
-	unordered_map<ll, ll> mp, dp;
-	vector<ll> nums(n + 1, 0);
+	ll n, m, x, sum = 0, ans, k, p, v; cin >> n >> m;
+	map<ll, ll> mp;
+	vector<pair<ll, ll> > tracks;
 
-	for (int i = 1; i <= n; i++) {
-		cin >> x; nums[i] = x;
+	for (int i = 0; i < n; i++) {
+		cin >> x;
 		sum += x;
 		mp[x]++;
 	}
 
-	for (int i = 1; i <= n; i++) {
-		unordered_map<ll, ll> tMp(mp);
-		dfs(nums[i], nums[i], 0ll, sum, ans, m, tMp, dp);
+	for (auto it : mp)
+		tracks.push_back(it);
+
+	k = tracks.size(), ans = sum;
+	vector<ll> s(k, 0);
+
+	if (k == m) {
+		cout << 0 << endl;
+		return;
 	}
+
+	for (int i = 0; i < k; i++) {
+		if (tracks[(i + 1) % k].first != (tracks[i].first + 1) % m) {
+			p = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < k; i++) {
+		x = (p - i + k) % k;
+		s[x] = sum;
+		if (tracks[(x + 1) % k].first == ((tracks[x].first + 1) % m))
+			s[x] = s[(x + 1) % k];
+
+		s[x] -= (tracks[x].first * tracks[x].second);
+	}
+
+	for (int i = 0; i < k; i++)
+		ans = min(ans, s[i]);
 
 	cout << ans << endl;
 }
