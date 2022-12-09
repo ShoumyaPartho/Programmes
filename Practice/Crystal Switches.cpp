@@ -23,7 +23,7 @@ void solve() {
 	vector<int> dis(2 * n + 5, INF); dis[1] = 0;
 	deque<int> deq; deq.push_front(1);
 
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= m; i++) {
 		cin >> u >> v >> c;
 
 		if (c)
