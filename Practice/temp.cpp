@@ -1,50 +1,73 @@
+// Solved by: Shoumya
+
 #include<bits/stdc++.h>
 using namespace std;
 
-bool is_prime(int x) {
-    if (x < 2)
-        return false;
+#define endl "\n"
+#define ll long long int
 
-    else if (x == 2)
-        return true;
+void fastIO() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
 
-    else if (x % 2 == 0)
-        return false;
-
-    for (int i = 3; i * i <= x; i++) {
-        if (x % i == 0)
-            return false;
-    }
-
-    return true;
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
 }
 
-void count_prime(int n, int *ara, int i, int &cntPrm) {
-    if (i == n)
-        return;
+void solve() {
+    int n, k, idx = 1, totDam = 0; cin >> n >> k;
+    pair<int, int> ara[n + 1];
 
-    if (is_prime(ara[i])) {
-        cntPrm++;
-        cout << ara[i] << " ";
+    for (int i = 1; i <= n; i++)
+        cin >> ara[i].second;
+
+    for (int i = 1; i <= n; i++)
+        cin >> ara[i].first;
+
+    sort(ara + 1, ara + 1 + n);
+
+    while (idx <= n) {
+        totDam += k;
+
+        for (auto i = idx; i <= n; i++) {
+            if (ara[i].second > totDam) {
+                idx = i;
+                k -= ara[i].first;
+
+                if (k < 0) {
+                    cout << "NO" << endl;
+                    return;
+                }
+
+                break;
+            }
+
+            else if (i == n) {
+                cout << "YES" << endl;
+                return;
+            }
+        }
     }
-
-    count_prime(n, ara, i + 1, cntPrm);
 }
 
 int main() {
-    int n, cntPrm = 0;
-    cout << "Please enter size of array: ";
-    cin >> n;
+    fastIO();
 
-    int ara[n];
-    cout << "Please enter elements of array: ";
+    // solve();
 
-    for (auto &x : ara)
-        cin >> x;
+    int tc, t; cin >> t;
 
-    count_prime(n, ara, 0, cntPrm);
-
-    cout << "\n\n#primes=" << cntPrm << endl;
+    for (tc = 1; tc <= t; tc++) {
+        // cout<<"Case "<<tc<<": ";
+        solve();
+    }
 
     return 0;
 }
+
+
+
+
+
