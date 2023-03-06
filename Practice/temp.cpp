@@ -17,39 +17,28 @@ void fastIO() {
 }
 
 void solve() {
-    int n, k, idx = 1, totDam = 0; cin >> n >> k;
-    pair<int, int> ara[n + 1];
+    int n, mod =  998244353; cin >> n;
+    int data[n + 3][3], dp[n + 3][3];
+    memset(dp, 0, sizeof(dp)); dp[1][1] = dp[1][2] = 1;
 
     for (int i = 1; i <= n; i++)
-        cin >> ara[i].second;
+        cin >> data[i][1] >> data[i][2];
 
-    for (int i = 1; i <= n; i++)
-        cin >> ara[i].first;
+    for (int i = 2; i <= n; i++) {
+        if (data[i][1] != data[i - 1][1])
+            dp[i][1] = ((dp[i][1] % mod) + (dp[i - 1][1] % mod)) % mod;
 
-    sort(ara + 1, ara + 1 + n);
+        if (data[i][1] != data[i - 1][2])
+            dp[i][1] = ((dp[i][1] % mod) + (dp[i - 1][2] % mod)) % mod;
 
-    while (idx <= n) {
-        totDam += k;
+        if (data[i][2] != data[i - 1][1])
+            dp[i][2] = ((dp[i][2] % mod) + (dp[i - 1][1] % mod)) % mod;
 
-        for (auto i = idx; i <= n; i++) {
-            if (ara[i].second > totDam) {
-                idx = i;
-                k -= ara[i].first;
-
-                if (k < 0) {
-                    cout << "NO" << endl;
-                    return;
-                }
-
-                break;
-            }
-
-            else if (i == n) {
-                cout << "YES" << endl;
-                return;
-            }
-        }
+        if (data[i][2] != data[i - 1][2])
+            dp[i][2] = ((dp[i][2] % mod) + (dp[i - 1][2] % mod)) % mod;
     }
+
+    cout << ((dp[n][1] + dp[n][2]) % mod) << endl;
 }
 
 int main() {
@@ -57,7 +46,7 @@ int main() {
 
     // solve();
 
-    int tc, t; cin >> t;
+    int tc, t = 1; // cin>>t;
 
     for (tc = 1; tc <= t; tc++) {
         // cout<<"Case "<<tc<<": ";
@@ -66,8 +55,3 @@ int main() {
 
     return 0;
 }
-
-
-
-
-
