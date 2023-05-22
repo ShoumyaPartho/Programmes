@@ -16,14 +16,14 @@ void fastIO() {
 #endif
 }
 
-void solve() {
-    ll a, b, c, d; cin >> a >> b >> c >> d;
+int egcd(int a, int b, int x, int y) {
     if (a == 0) {
-        cout << 1 << endl;
-        return;
+        x = 0, y = 1;
+        return b;
     }
-    ll ans = a + (min(b, c) * 2) + min (a + 1, max(b, c) - min(b, c) + d);
-    cout << ans << endl;
+}
+
+void solve() {
 }
 
 int main() {
