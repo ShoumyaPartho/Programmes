@@ -5,7 +5,6 @@ using namespace std;
 
 #define endl "\n"
 #define ll long long int
-const int INF = 1e7;
 
 void fastIO() {
     ios_base::sync_with_stdio(false);
@@ -17,80 +16,48 @@ void fastIO() {
 #endif
 }
 
-void bfs(int i, int h, int w, int n, vector<vector<char> > &grid, vector<vector<int> > &dis, vector<pair<int, int> > &points) {
-    vector<vector<int> > d(h, vector<int> (w, INF));
-    int x = points[i].first, y = points[i].second, xx, yy;
-    int dx[4] = {1, 0, -1, 0};
-    int dy[4] = {0, 1, 0, -1};
-    queue<pair<int, int> > q; q.push({x, y});
-    d[x][y] = 0;
+ll bigMod(ll a, ll p, ll m) {
+    if (p == 0)
+        return 1;
 
-    while (not q.empty()) {
-        xx = q.front().first, yy = q.front().second; q.pop();
+    if (p == 1)
+        return a % m;
 
-        for (int i = 0; i < 4; i++) {
-            x = xx + dx[i], y = yy + dy[i];
+    ll temp = bigMod(a, p / 2, m);
+    temp = ((temp % m) * (temp % m)) % m;
 
-            if (x >= 0 and x<h and y >= 0 and y < w and grid[x][y] != '#' and d[x][y] == INF) {
-                d[x][y] = d[xx][yy] + 1;
-                q.push({x, y});
-            }
-        }
+    if (p % 2)
+        temp = ((temp % m) * (a % m)) % m;
+
+    return temp;
+}
+
+ll inverseMod(ll a, ll b) {
+    ll res = a % b;
+
+    for (int i = 1; i < b; i++) {
+        ll t = ((a % b) * (i % b)) % b;
+
+        if (t == 1)
+            return i;
     }
-
-    for (int j = i; j < n; j++)
-        dis[i][j] = dis[j][i] = d[points[j].first][points[j].second];
 }
 
 void solve() {
-    int h, w, t, n = 2, it = 1, ans = -1; cin >> h >> w >> t;
-    vector<vector<char> > grid(h, vector<char> (w));
-    vector<pair<int, int> > points;
+    ll p = 101, alpha = 11, a = 20, x = 15, k = 31, beta = bigMod(alpha, a, p), y1, y2, t1, t2, res;
+    // ll p = 13, alpha = 2, a = 3, x = 11, k = 5, beta = bigMod(alpha, a, p), y1, y2, t1, t2, res;
+    y1 = bigMod(alpha, k, p); cout << "y1 = " << y1 << " beta = " << beta << endl;
+    t1 = ((a % (p - 1)) * (y1 % (p - 1))) % (p - 1);
+    t1 = ((((x % (p - 1)) - (t1 % (p - 1))) % (p - 1)) + (p - 1)) % (p - 1);
+    t2 = inverseMod(k, p - 1); // cout << t2 << endl;
+    y2 = ((t1 % (p - 1)) * (t2 % (p - 1))) % (p - 1); cout << "y2 = " << y2 << endl;
 
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            cin >> grid[i][j];
+    t1 = bigMod(y1, y2, p);
+    t2 = bigMod(beta, y1, p);
+    res = ((t1 % p) * (t2 % p)) % p;
+    t1 = bigMod(alpha, x, p);
 
-            if (grid[i][j] == 'o')
-                n++;
-        }
-    }
-
-    points.resize(n);
-    vector<vector<int> > dis(n, vector<int> (n));
-    vector<vector<int> > dp(1 << n, vector<int> (n, INF)); dp[1][0] = 0;
-
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            if (grid[i][j] == 'S')
-                points[0] = {i, j};
-
-            if (grid[i][j] == 'G')
-                points[n - 1] = {i, j};
-
-            if (grid[i][j] == 'o')
-                points[it++] = {i, j};
-        }
-    }
-
-    for (int i = 0; i < n; i++)
-        bfs(i, h, w, n, grid, dis, points);
-
-    for (int mask = 1; mask < (1 << n); mask += 2) {
-        for (int v = 0; v < n; v++) {
-            for (int x = 1; x < n; x++) {
-                if (not (mask & (1 << x)))
-                    dp[mask | (1 << x)][x] = min(dp[mask | (1 << x)][x], dp[mask][v] + dis[v][x]);
-            }
-        }
-    }
-
-    for (int mask = 1; mask < (1 << n); mask += 2) {
-        if (dp[mask][n - 1] <= t)
-            ans = max(ans, __builtin_popcount(mask) - 2);
-    }
-
-    cout << ans << endl;
+    cout << t1 << " " << res << endl;
 }
 
 int main() {
