@@ -1,4 +1,1 @@
-Yes
-Yes
-No
-Yes
+Message = 500 , Ver = 500
