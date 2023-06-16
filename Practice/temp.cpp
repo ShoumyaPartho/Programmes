@@ -16,75 +16,45 @@ void fastIO() {
 #endif
 }
 
-ll bigMod(ll a, ll p, ll m) {
-    if (p == 0)
-        return 1;
-
-    if (p == 1)
-        return a % m;
-
-    ll temp = bigMod(a, p / 2, m);
-    temp = ((temp % m) * (temp % m)) % m;
-
-    if (p % 2)
-        temp = ((temp % m) * (a % m)) % m;
-
-    return temp;
-}
-
-ll inverseMod(ll a, ll b) {
-    ll res = a % b;
-
-    for (int i = 1; i < b; i++) {
-        ll t = ((a % b) * (i % b)) % b;
-
-        if (t == 1)
-            return i;
-    }
-}
-
-void elCryp() {
-    ll p = 101, alpha = 11, a = 20, x = 15, k = 31, beta = bigMod(alpha, a, p), y1, y2, t1, t2, res;
-
-    // Encryption
-    y1 = bigMod(alpha, k, p);
-    t1 = bigMod(beta, k, p);
-    y2 = ((x % p) * (t1 % p)) % p;
-
-    // Decryption
-    t1 = bigMod(y1, a, p);
-    t1 = inverseMod(t1, p);
-    res = ((y2 % p) * (t1 % p)) % p;
-
-    cout << "Message : " << x << " , Result = " << res << endl;
-}
-
-void elSign() {
-    ll p = 101, alpha = 11, a = 20, x = 15, k = 31, beta = bigMod(alpha, a, p), y1, y2, t1, t2, res;
-    // ll p = 13, alpha = 2, a = 3, x = 11, k = 5, beta = bigMod(alpha, a, p), y1, y2, t1, t2, res;
-    y1 = bigMod(alpha, k, p); cout << "y1 = " << y1 << " beta = " << beta << endl;
-    t1 = ((a % (p - 1)) * (y1 % (p - 1))) % (p - 1);
-    t1 = ((((x % (p - 1)) - (t1 % (p - 1))) % (p - 1)) + (p - 1)) % (p - 1);
-    t2 = inverseMod(k, p - 1); // cout << t2 << endl;
-    y2 = ((t1 % (p - 1)) * (t2 % (p - 1))) % (p - 1); cout << "y2 = " << y2 << endl;
-
-    t1 = bigMod(y1, y2, p);
-    t2 = bigMod(beta, y1, p);
-    res = ((t1 % p) * (t2 % p)) % p;
-    t1 = bigMod(alpha, x, p);
-
-    cout << t1 << " " << res << endl;
-}
-
 void solve() {
-    elCryp();
-    // elSign();
+    int n, x = 1; cin >> n;
+    int ara[n], ele[n + 1], cnt;
+
+    for (int i = 0; i < n; i++)
+        cin >> ara[i];
+
+    // sort(ara, ara + n);
+    ele[1] = ara[0];
+
+    for (int i = 1; i < n; i++) {
+        if (ara[i - 1] != ara[i])
+            ele[++x] = ara[i];
+    }
+
+    cnt = x;
+
+    for (int i = 1; i < x - 1; i++) {
+        if ((ele[i] < ele[i + 1]) and (ele[i + 1] < ele[i + 2]))
+            cnt--;
+
+        if ((ele[i] > ele[i + 1]) and (ele[i + 1] > ele[i + 2]))
+            cnt--;
+    }
+
+    cout << cnt << endl;
 }
 
 int main() {
     fastIO();
 
-    solve();
+    // solve();
+
+    int tc, t; cin >> t;
+
+    for (tc = 1; tc <= t; tc++) {
+        // cout<<"Case "<<tc<<": ";
+        solve();
+    }
 
     return 0;
 }
