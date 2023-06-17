@@ -17,31 +17,29 @@ void fastIO() {
 }
 
 void solve() {
-    int n, x = 1; cin >> n;
-    int ara[n], ele[n + 1], cnt;
+    int n; cin >> n;
+    int l[n + 10], cnt, flag = 0;
 
-    for (int i = 0; i < n; i++)
-        cin >> ara[i];
+    for (int i = 1; i <= n; i++)
+        cin >> l[i];
 
-    // sort(ara, ara + n);
-    ele[1] = ara[0];
+    for (int i = 0; i <= n; i++) {
+        cnt = 0 ;
 
-    for (int i = 1; i < n; i++) {
-        if (ara[i - 1] != ara[i])
-            ele[++x] = ara[i];
+        for (int j = 1; j <= n; j++) {
+            if (l[j] > i)
+                cnt++;
+        }
+
+        if (cnt == i) {
+            cout << i << endl;
+            flag = 1;
+            break;
+        }
     }
 
-    cnt = x;
-
-    for (int i = 1; i < x - 1; i++) {
-        if ((ele[i] < ele[i + 1]) and (ele[i + 1] < ele[i + 2]))
-            cnt--;
-
-        if ((ele[i] > ele[i + 1]) and (ele[i + 1] > ele[i + 2]))
-            cnt--;
-    }
-
-    cout << cnt << endl;
+    if (not flag)
+        cout << -1 << endl;
 }
 
 int main() {
