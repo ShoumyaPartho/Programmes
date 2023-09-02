@@ -17,29 +17,32 @@ void fastIO() {
 }
 
 void solve() {
-    int n; cin >> n;
-    int l[n + 10], cnt, flag = 0;
+    int n, k, cur = 0, flag = 0; cin >> n >> k;
+    pair<int, int> hp[n + 1];
 
     for (int i = 1; i <= n; i++)
-        cin >> l[i];
+        cin >> hp[i].second;
 
-    for (int i = 0; i <= n; i++) {
-        cnt = 0 ;
+    for (int i = 1; i <= n; i++)
+        cin >> hp[i].first;
 
-        for (int j = 1; j <= n; j++) {
-            if (l[j] > i)
-                cnt++;
-        }
+    sort(hp + 1, hp + 1 + n);
 
-        if (cnt == i) {
-            cout << i << endl;
+    for (int i = 1; i <= n and k >= 0;) {
+        cur += k;
+
+        while (i <= n and hp[i].second <= cur)
+            i++;
+
+        if (i > n) {
             flag = 1;
             break;
         }
+
+        k -= hp[i].first;
     }
 
-    if (not flag)
-        cout << -1 << endl;
+    cout << (flag ? "YES" : "NO") << endl;
 }
 
 int main() {
