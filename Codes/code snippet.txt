@@ -1,0 +1,50 @@
+{
+  // Example snippet: competitive programming template
+  "zzcp": {
+    "prefix": "zzcp",
+    "body": [
+      "// Solved by: SHOUMYA",
+	  "",
+	  "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "",
+      "#define fast_io ios::sync_with_stdio(false); cin.tie(nullptr);",
+      "#define ll long long",
+      "#define endl '\\n'",
+      "#define pb push_back",
+      "",
+	  "",
+	  "void solve() {",
+	  "    ",
+	  "}",
+	  "",
+      "int main() {",
+      "    fast_io;",
+      "    #ifndef ONLINE_JUDGE",
+      "        freopen(\"input.txt\", \"r\", stdin);",
+      "        freopen(\"output.txt\", \"w\", stdout);",
+      "    #endif",
+      "",
+      "    int t;",
+      "    // t = 1;",
+      "    cin >> t;",
+      "    for (int tc = 1; tc <= t; tc++) {",
+      "        // cout << \"Case #\" << tc << \": \";",
+	  "        solve();",
+      "    }",
+      "    return 0;",
+      "}"
+    ],
+    "description": "C++ fast I/O + file redirection template"
+  },
+
+  // Another example snippet: fast I/O only
+  "zzfastio": {
+    "prefix": "zzfastio",
+    "body": [
+      "ios::sync_with_stdio(false);",
+      "cin.tie(nullptr);"
+    ],
+    "description": "Enable fast I/O"
+  }
+}
