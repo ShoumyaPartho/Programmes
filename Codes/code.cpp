@@ -10,34 +10,23 @@ using namespace std;
 
 
 void solve() {
-    int n; cin>>n;
-    vector<int> ara(n+5,0);
-    int curBest;
-    bool isFound = false;
+    string s;
+    int len,cnt = 0;
+    cin>>s; len = s.size();
 
-    for(int i=1;i<=n;i++)
-        cin>>ara[i];
-
-    for(int i=1;i<=n;i++){
-        curBest = n-i+1;
-
-        if(curBest == ara[i] or isFound){
-            cout<<ara[i]<<" ";
-            continue;
-        }
-        
-        for(int j=i+1;j<=n;j++){
-            if(ara[j]==curBest){
-                for(int k=j;k>=i;k--)
-                    cout<<ara[k]<<" ";
-                i = j;
-                isFound = true;
-                break;
-            }
+    if(s[0]=='u')
+        cnt++;
+    if(s[len-1]=='u')
+        cnt++;
+    s[0]=s[len-1]='s';
+    
+    for(int i=1;i<len;i++){
+        if(s[i]==s[i-1] and s[i]=='u'){
+            cnt++;
+            s[i]='s';
         }
     }
-    
-    cout<<endl;
+    cout<<cnt<<endl;
 }
 
 int main() {
