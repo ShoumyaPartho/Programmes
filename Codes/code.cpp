@@ -8,23 +8,19 @@ using namespace std;
 #define endl '\n'
 #define pb push_back
 
+ll sum(ll n){
+    ll s = 0;
+    while(n){
+        s += n%10;
+        n /= 10;
+    }
+    return s;
+}
 
 void solve() {
-    string s;
-    int len,cnt = 0;
-    cin>>s; len = s.size();
-
-    if(s[0]=='u')
-        cnt++;
-    if(s[len-1]=='u')
-        cnt++;
-    s[0]=s[len-1]='s';
-    
-    for(int i=1;i<len;i++){
-        if(s[i]==s[i-1] and s[i]=='u'){
-            cnt++;
-            s[i]='s';
-        }
+    ll n,cnt = 0; cin>>n;
+    for(ll i=n+1; i<=n+200;i++){
+        if(i - sum(i) == n) cnt++;
     }
     cout<<cnt<<endl;
 }
